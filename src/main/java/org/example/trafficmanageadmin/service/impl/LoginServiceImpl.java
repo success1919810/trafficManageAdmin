@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginServiceImpl extends ServiceImpl<LoginMapper,User> implements LoginService  {
+public class LoginServiceImpl extends ServiceImpl<LoginMapper, User> implements LoginService  {
     @Autowired
     private LoginMapper loginMapper;
     @Override
