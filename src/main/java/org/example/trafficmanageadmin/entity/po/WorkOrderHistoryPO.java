@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.trafficmanageadmin.entity.enums.WorkOrderHistoryEnum;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class WorkOrderHistoryPO {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer workOrderId;
-    private String status;
+    private WorkOrderHistoryEnum status;
     private String description;
     private String operatorName;
     private LocalDateTime createdAt;

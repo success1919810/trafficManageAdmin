@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.example.trafficmanageadmin.entity.Result;
 import org.example.trafficmanageadmin.entity.po.EquipmentPO;
+import org.example.trafficmanageadmin.entity.po.WorkOrderHistoryPO;
 import org.example.trafficmanageadmin.entity.po.WorkOrdersPO;
 import org.example.trafficmanageadmin.entity.vo.ErrorSubmitCardVO;
 import org.example.trafficmanageadmin.service.EquipmentService;
@@ -39,21 +40,36 @@ public class ErrorSubmitController {
         //封装成为VO对象返回给前端
         for(WorkOrdersPO workOrdersPO:workOrdersPOList){
             ErrorSubmitCardVO errorSubmitCardVO = new ErrorSubmitCardVO();
-            errorSubmitCardVO.id=workOrdersPO.getId();
-            errorSubmitCardVO.order_no=workOrdersPO.getOrderNo();
-            errorSubmitCardVO.fault_type=workOrdersPO.getFaultType();
-            errorSubmitCardVO.equipment_code = workOrdersPO.getEquipmentId();
-            errorSubmitCardVO.report_time=workOrdersPO.getReportTime();
-            errorSubmitCardVO.reporter_name=workOrdersPO.getReporterName();
-            errorSubmitCardVO.status=workOrdersPO.getStatus().getValue();
+            errorSubmitCardVO.setId(workOrdersPO.getId());
+            errorSubmitCardVO.setOrderNo(workOrdersPO.getOrderNo());
+            errorSubmitCardVO.setFaultType(workOrdersPO.getFaultType());
+            errorSubmitCardVO.setEquipmentCode(workOrdersPO.getEquipmentId());
+            errorSubmitCardVO.setReportTime(workOrdersPO.getReportTime());
+            errorSubmitCardVO.setReporterName(workOrdersPO.getReporterName());
+            errorSubmitCardVO.setStatus(workOrdersPO.getStatus().getValue());
+            errorSubmitCardVO.setFaultDescription(workOrdersPO.getFaultDescription());
+            errorSubmitCardVO.setFaultImages(workOrdersPO.getFaultImages());
+            errorSubmitCardVO.setMaintenancePerson(workOrdersPO.getMaintenancePerson());
+            errorSubmitCardVO.setProcessTime(workOrdersPO.getProcessTime());
+            errorSubmitCardVO.setCompleteTime(workOrdersPO.getCompleteTime());
+            errorSubmitCardVO.setSceneImages(workOrdersPO.getSceneImages());
+            errorSubmitCardVO.setRating(workOrdersPO.getRating());
+            errorSubmitCardVO.setEvaluationComment(workOrdersPO.getEvaluationComment());
             //查询设备信息一起进行封装
             QueryWrapper<EquipmentPO> equipmentQuery = new QueryWrapper<>();
             equipmentQuery.eq("id", workOrdersPO.getEquipmentId());
             EquipmentPO equipmentPO = equipmentService.getOne(equipmentQuery);
-            errorSubmitCardVO.equipment_code=equipmentPO.getEquipmentCode();
-            errorSubmitCardVO.equipment_type=equipmentPO.getEquipmentType();
-            errorSubmitCardVO.location=equipmentPO.getLocation();
+            errorSubmitCardVO.setEquipmentCode(equipmentPO.getEquipmentCode());
+            errorSubmitCardVO.setEquipmentType(equipmentPO.getEquipmentType());
+            errorSubmitCardVO.setLocation(equipmentPO.getLocation());
+            errorSubmitCardVO.setResponsiblePerson(equipmentPO.getResponsiblePerson());
+            errorSubmitCardVO.setContactPhone(equipmentPO.getContactPhone());
             errorSubmitCardVOS.add(errorSubmitCardVO);
+            //查询工单历史信息
+            QueryWrapper<WorkOrderHistoryPO> workOrderHistoryQuery = new QueryWrapper<>();
+            workOrderHistoryQuery.eq("work_order_id", workOrdersPO.getId());
+            List<WorkOrderHistoryPO> workOrderHistoryPOList = workOrderHistoryService.list(workOrderHistoryQuery);
+            errorSubmitCardVO.setWorkOrderHistory(workOrderHistoryPOList);
         }
         log.info("返回的数据有：{}",errorSubmitCardVOS);
         return Result.success(errorSubmitCardVOS);

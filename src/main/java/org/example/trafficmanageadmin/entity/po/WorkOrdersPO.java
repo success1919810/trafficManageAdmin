@@ -32,6 +32,7 @@ public class WorkOrdersPO {
     private LocalDateTime completeTime;
     private List<String> sceneImages;
     private WorkOrderEnum status;
+    private Integer rating;
     private String evaluationComment;
     private LocalDateTime evaluationTime;
     private LocalDateTime createdAt;
