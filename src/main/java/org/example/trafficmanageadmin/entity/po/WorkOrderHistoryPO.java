@@ -6,19 +6,18 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.trafficmanageadmin.entity.enums.WorkOrderHistoryEnum;
 
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("work_order_history")
+@TableName(value = "work_order_history",autoResultMap = true)
 public class WorkOrderHistoryPO {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer workOrderId;
-    private WorkOrderHistoryEnum status;
+    private String status;
     private String description;
     private String operatorName;
     private LocalDateTime createdAt;

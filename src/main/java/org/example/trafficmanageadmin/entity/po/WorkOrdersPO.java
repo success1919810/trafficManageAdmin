@@ -1,8 +1,10 @@
 package org.example.trafficmanageadmin.entity.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("work_orders")
+@TableName(value = "work_orders",autoResultMap = true)
 public class WorkOrdersPO {
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -26,10 +28,12 @@ public class WorkOrdersPO {
     private LocalDateTime reportTime;
     private String faultType;
     private String faultDescription;
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> faultImages;
     private String maintenancePerson;
     private LocalDateTime processTime;
     private LocalDateTime completeTime;
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> sceneImages;
     private WorkOrderEnum status;
     private Integer rating;
