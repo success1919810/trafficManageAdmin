@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: tlias-web-management
+  #mysql连接配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/traffic-manage
+    username: root
+    password: 1234
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 5
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          min-idle: 0
+          max-idle: 8
+
+server:
+    port: 8080
+    address: 0.0.0.0
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+aliyun:
+    oss:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      access-key-id: ${OSS_ACCESS_KEY_ID}
+      access-key-secret: ${OSS_ACCESS_KEY_SECRET}
+      bucket-name: traffic-manage
